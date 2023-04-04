@@ -236,3 +236,4 @@ export interface TCarouselActionOptions {
   animated?: boolean
   onFinished?: () => void
 }
+
