@@ -71,6 +71,7 @@ export type TCarouselProps<T = any> = {
      * @default true
      */
   loop?: boolean
+  lang?:"ar"|"en"
   /**
      * Carousel items data set.
      */
@@ -173,7 +174,7 @@ export type TCarouselProps<T = any> = {
   /**
      * On scroll begin
      */
-  onScrollBegin?: () => void
+  onScrollBegin?: (currentIndex?:number) => void
   /**
      * On scroll end
      */
