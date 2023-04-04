@@ -37,6 +37,7 @@ interface Props {
   onTouchBegin?: () => void
   onTouchEnd?: () => void
   translation: Animated.SharedValue<number>
+  lang?:"ar"|"en"
 }
 
 const IScrollViewGesture: React.FC<Props> = (props) => {
@@ -51,7 +52,7 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
       withAnimation,
       enabled,
       dataLength,
-      overscrollEnabled,
+      overscrollEnabled,lang
     },
   } = React.useContext(CTX);
 
@@ -277,7 +278,8 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
         }
 
         const translationValue = ctx.panOffset + panTranslation;
-        translation.value = translationValue;
+        translation.value =lang=='ar'? -translationValue:translationValue;
+      
       },
       onEnd: (e) => {
         const { velocityX, velocityY, translationX, translationY } = e;
@@ -285,7 +287,7 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
           ? velocityX
           : velocityY;
         scrollEndTranslation.value = isHorizontal.value
-          ? translationX
+          ?lang=='ar'?- translationX: translationX  
           : translationY;
 
         endWithSpring(onScrollEnd);
@@ -326,3 +328,4 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
 };
 
 export const ScrollViewGesture = IScrollViewGesture;
+
