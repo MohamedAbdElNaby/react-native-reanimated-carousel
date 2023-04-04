@@ -50,7 +50,7 @@ const Carousel = React.forwardRef<ICarouselInstance, TCarouselProps<any>>(
       onScrollBegin,
       onProgressChange,
       customAnimation,
-      defaultIndex,
+      defaultIndex,lang
     } = props;
 
     const commonVariables = useCommonVariables(props);
@@ -124,8 +124,16 @@ const Carousel = React.forwardRef<ICarouselInstance, TCarouselProps<any>>(
     ]);
 
     const scrollViewGestureOnScrollBegin = React.useCallback(() => {
+        const _sharedIndex = Math.round(getSharedIndex());
+
+      const realIndex = computedRealIndexWithAutoFillData({
+        index: _sharedIndex,
+        dataLength: rawDataLength,
+        loop,
+        autoFillData,
+      });
       pauseAutoPlay();
-      onScrollBegin?.();
+      onScrollBegin?.(realIndex);
     }, [onScrollBegin, pauseAutoPlay]);
 
     const scrollViewGestureOnScrollEnd = React.useCallback(() => {
@@ -203,6 +211,7 @@ const Carousel = React.forwardRef<ICarouselInstance, TCarouselProps<any>>(
     return (
       <CTX.Provider value={{ props, common: commonVariables }}>
         <ScrollViewGesture
+        lang={lang}
           key={mode}
           size={size}
           translation={handlerOffset}
@@ -245,3 +254,4 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
 });
+
