@@ -174,7 +174,7 @@ export type TCarouselProps<T = any> = {
   /**
      * On scroll begin
      */
-  onScrollBegin?: (currentIndex?:number) => void
+  onScrollBegin?: () => void
   /**
      * On scroll end
      */
@@ -236,4 +236,3 @@ export interface TCarouselActionOptions {
   animated?: boolean
   onFinished?: () => void
 }
-
