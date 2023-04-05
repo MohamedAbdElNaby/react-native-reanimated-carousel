@@ -124,16 +124,9 @@ const Carousel = React.forwardRef<ICarouselInstance, TCarouselProps<any>>(
     ]);
 
     const scrollViewGestureOnScrollBegin = React.useCallback(() => {
-        const _sharedIndex = Math.round(getSharedIndex());
 
-      const realIndex = computedRealIndexWithAutoFillData({
-        index: _sharedIndex,
-        dataLength: rawDataLength,
-        loop,
-        autoFillData,
-      });
       pauseAutoPlay();
-      onScrollBegin?.(realIndex);
+      onScrollBegin?.();
     }, [onScrollBegin, pauseAutoPlay]);
 
     const scrollViewGestureOnScrollEnd = React.useCallback(() => {
@@ -254,5 +247,3 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
 });
-
-
