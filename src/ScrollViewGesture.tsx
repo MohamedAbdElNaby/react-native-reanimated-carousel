@@ -265,7 +265,7 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
         touching.value = true;
         const { translationX, translationY } = e;
         const panTranslation = isHorizontal.value
-          ? translationX
+          ?lang=='ar'? -translationX:translationX
           : translationY;
         if (!infinite) {
           if ((translation.value > 0 || translation.value < -ctx.max)) {
@@ -278,8 +278,8 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
         }
 
         const translationValue = ctx.panOffset + panTranslation;
-        translation.value =lang=='ar'? -translationValue:translationValue;
-      
+        translation.value = translationValue;
+
       },
       onEnd: (e) => {
         const { velocityX, velocityY, translationX, translationY } = e;
@@ -287,7 +287,7 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
           ? velocityX
           : velocityY;
         scrollEndTranslation.value = isHorizontal.value
-          ?lang=='ar'?- translationX: translationX  
+          ?lang=='ar'? -translationX: translationX
           : translationY;
 
         endWithSpring(onScrollEnd);
@@ -313,6 +313,7 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
       {...panGestureHandlerProps}
       enabled={enabled}
       onGestureEvent={panGestureEventHandler}
+
     >
       <Animated.View
         ref={containerRef}
@@ -328,4 +329,3 @@ const IScrollViewGesture: React.FC<Props> = (props) => {
 };
 
 export const ScrollViewGesture = IScrollViewGesture;
-
